@@ -1,0 +1,30 @@
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+const int inPin = A0;
+
+void setup() {
+  lcd.begin(16, 2);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int value = analogRead(inPin);
+  
+  if (value < 10) {
+    value = 0;
+  }
+  
+  float celsius = value * (5.0 / 1024.0) * 100.0;
+
+  Serial.print("Temperature: ");
+  Serial.print(celsius);
+  Serial.println(" C");
+
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print(celsius);
+  lcd.print(" C");
+
+  delay(1000);
+}
